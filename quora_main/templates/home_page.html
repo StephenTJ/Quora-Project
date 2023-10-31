@@ -1,149 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'bulma.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'bootstrap.css' %}"> -->
-</head>
-<style>
+    <link rel="stylesheet" href="{% static 'bulma.css' %}" />
+  </head>
+  <style>
     .custom-container {
-        background-color: #ffd8e4;
-        height: 100vh;
-        /* Set the height to 100% of the viewport height */
-        overflow-y: auto;
-        /* Allow vertical scrolling if content overflows */
+      background-color: #ffd8e4;
+      height: 100vh;
+      overflow-y: auto;
     }
     .is-fab {
-    width: 100%;
-    position: fixed; /* Change this to relative */
-    bottom: 0;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
 
-    justify-content: flex-end; /* Change this to flex-end */
-    display: flex;
-    padding: 20px;
-}
+      justify-content: flex-end;
+      display: flex;
+      padding: 20px;
+    }
 
-.has-content-centered {
-    display: flex; /* Corrected flex property */
-    justify-content: flex-end;
-}
-</style>
+    .has-content-centered {
+      display: flex;
+      justify-content: flex-end;
+    }
+  </style>
+  <style>
+    html,
+    body {
+      background-color: #faf1f5;
+    }
+  </style>
 
-<body">
+  <body style="background-color: #faf1f5">
     <!-- NAV BAR-->
-    <nav class="navbar is-danger" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%;background-color: #f38181;">
-        <div class="navbar-brand">
-            <a class="navbar-item">
-                <h2 style="font-size: 30px;color: #ffffff;"><strong>Quora Project</strong></h2>
-                <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
-            </a>
+    <nav
+      class="navbar is-danger"
+      role="navigation"
+      aria-label="main navigation"
+      style="position: fixed; top: 0; width: 100%; background-color: #f38181"
+    >
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/home">
+          <h2 style="font-size: 30px; color: #ffffff">
+            <strong>Quora Project</strong>
+          </h2>
+        </a>
 
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a
+            class="navbar-item"
+            href="/home"
+            style="color: #ffffff; font-size: 20px"
+          >
+            Posts
+          </a>
+
+          <a
+            class="navbar-item"
+            href="/questions"
+            style="color: #ffffff; font-size: 20px"
+          >
+            Questions
+          </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start" >
-                <a class="navbar-item" href="/home" style="color: #ffffff;font-size: 20px;">
-                    Posts
-                </a>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a
+                class="button is-warning"
+                href="/signup"
+                style="background-color: #ffdeac"
+              >
+                <strong style="color: #5b5b5b">Sign Up</strong>
+              </a>
+              {% if user.is_authenticated %}
 
-                <a class="navbar-item" href="/questions" style="color: #ffffff;font-size: 20px;">
-                    Questions
-                </a>
+              <a
+                class="button is-warning"
+                href="/logout"
+                style="background-color: #ffdeac"
+              >
+                <strong style="color: #5b5b5b">Log Out</strong>
+              </a>
+
+              {% else %}
+
+              <a
+                class="button is-warning"
+                href="/login"
+                style="background-color: #ffdeac"
+              >
+                <strong style="color: #5b5b5b">Log In</strong>
+              </a>
+
+              {% endif %}
             </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-warning" href="/signup">
-                            <strong>Sign Up</strong>
-                        </a>
-                        {% if user.is_authenticated %}
-
-                        <a class="button is-warning" href="/logout">
-                            <strong>Log Out</strong>
-                        </a>
-
-                        {% else %}
-
-                        <a class="button is-warning" href="/login">
-                            <strong>Log In</strong>
-                        </a>
-
-                        {% endif %}
-
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </nav>
     <!-- NAV BAR-->
     <!-- Questions -->
-    <div class="container is-max-desktop " style="margin-top: 60px; height: calc(100vh - 60px);">
-
-        <ul>
-            {% for answer in answers %}
-            <li>
-                <div class="card" style="margin: 10px;">
-
-                    <div class="card-image">
-                        {{ answer.question_id.question_text }}
-                    </div>
-
-                    <div class="content" style="padding: 20px;">
-                       
-                        {{ answer.answer_text|slice:":1000" }}
-
-                        
-                    </div>
-                    <div class="card-content" style="display: flex; justify-content: space-between; align-items: center;">
-                       
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="subtitle is-6">Answered By&nbsp&nbsp&nbsp</p>
-                                <p class="title is-4">{{ answer.answered_by_user_name }}&nbsp;&nbsp;&nbsp;</p>
-                            </div>
-                           
-                            <div class="media-content">
-                                <p class="subtitle is-6">Asked By&nbsp&nbsp&nbsp</p>
-                                <p class="title is-4">{{ answer.question_id.asked_by_user_name }}&nbsp&nbsp&nbsp</p>
-                            </div>
-
-                            <div class="media-content">
-                                <p class="subtitle is-6">Likes</p>
-                                <p class="title is-4">{{ answer.num_likes }}</p>
-                            </div>
-                        </div>
-                        <button class="button is-primary is-rounded">
-                        {% if user_id %}
-                          
-                                <a href="addlike/{{ answer.answer_id }}/{{ user_id }}" style="color: #000000"><span>Like Post</span></a>
-                            
-                        {% else %}
-                            <a href="/login" style="color: #000000">Like Post</a>
-                        {% endif %}
-                    </button>
-                    </div>
+    <div
+      class="container is-max-desktop"
+      style="margin-top: 60px; height: calc(100vh - 60px)"
+    >
+      <ul>
+        {% for answer in answers %}
+        <li>
+          <div class="card" style="margin: 10px; background-color: #ffffff">
+            <div
+              class="card-image"
+              style="margin-left: 20px; margin-bottom: -10px; padding-top: 15px"
+            >
+              <span style="color: #b54e52; font-weight: bold"
+                >Question &nbsp</span
+              >
+              <span style="font-size: 16px; color: #7f282c"
+                >{{ answer.question_id.question_text }}</span
+              >
+            </div>
+            <hr />
+            <div class="content" style="margin-left: 20px; margin-right: 20px">
+              <span style="color: #b54e52; font-weight: bold"
+                >Answer &nbsp</span
+              >
+              <span style="font-size: 14px; color: #201a1a"
+                >{{ answer.answer_text|slice:":1000" }}</span
+              >
+            </div>
+            <hr />
+            <div
+              class="card-content"
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+              "
+            >
+              <div
+                class="media"
+                style="
+                  margin-top: -50px;
+                  margin-bottom: -50px;
+                  padding-top: -30px;
+                  padding-bottom: 30px;
+                "
+              >
+                <div class="media-content">
+                  <p
+                    class="subtitle is-6"
+                    style="font-weight: 700; font-size: 12px; color: #b54e52"
+                  >
+                    Answered By&nbsp&nbsp&nbsp&nbsp;&nbsp;
+                  </p>
+                  <p class="title is-4">
+                    <span style="font-size: 16px; color: #5b5b5b"
+                      >@{{ answer.answered_by_user_name }}&nbsp;&nbsp;&nbsp;</span
+                    >
+                  </p>
                 </div>
-            </li>
-            {% endfor %}
-        </ul>
+
+                <div class="media-content">
+                  <p
+                    class="subtitle is-6"
+                    style="font-weight: 700; font-size: 12px; color: #b54e52"
+                  >
+                    Asked By&nbsp&nbsp&nbsp&nbsp;&nbsp;
+                  </p>
+                  <p class="title is-4">
+                    <span style="font-size: 16px; color: #5b5b5b"
+                      >@{{ answer.question_id.asked_by_user_name }}&nbsp;&nbsp;&nbsp;</span
+                    >
+                  </p>
+                </div>
+
+                <div class="media-content">
+                  <p
+                    class="subtitle is-6"
+                    style="font-weight: 700; font-size: 12px; color: #b54e52"
+                  >
+                    Likes
+                  </p>
+                  <p class="title is-4">
+                    <span style="font-size: 16px; color: #5b5b5b"
+                      >{{ answer.num_likes }}</span
+                    >
+                  </p>
+                </div>
+              </div>
+              <button
+                class="button is-primary is-rounded"
+                style="background-color: #ffdeac"
+              >
+                {% if user_id %}
+
+                <a
+                  href="addlike/{{ answer.answer_id }}/{{ user_id }}"
+                  style="color: #5b5b5b"
+                  ><span>Like Post</span></a
+                >
+
+                {% else %}
+                <a href="/login" style="color: #000000">Like Post</a>
+                {% endif %}
+              </button>
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
     <!-- Questions -->
- 
-    <!-- Pop Up -->
-    </body>
-    <script src="{% static 'bootstrap.js' %}">
-    
-        </script>
-
+  </body>
+  <script src="{% static 'bootstrap.js' %}"></script>
 </html>

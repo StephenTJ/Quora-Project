@@ -18,9 +18,15 @@
     /* This sets the container to the full viewport height */
   }
   </style>
+    <style>
+      html,
+      body {
+        background-color: #faf1f5;
+      }
+    </style>
 <body>
      <!-- NAV BAR-->
-     <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
+     <nav class="navbar is-danger" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%; background-color: #f38181;">
         <div class="navbar-brand">
           <a class="navbar-item">
             <h2 style="font-size: 30px;"><strong>Quora Project</strong></h2>
@@ -48,7 +54,7 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-warning" href="/home">
+                <a class="button is-warning" href="/home" style="color: #5b5b5b;">
                   <strong>Home</strong>
                 </a>
               </div>
@@ -57,9 +63,8 @@
         </div>
       </nav>
     <!-- NAV BAR-->
-
   {% if messages %}
-  <div class="alert alert-danger">
+  <div class="alert alert-danger" style="margin-top: 50px;">
   <section class="hero is-small is-primary">
     <div class="hero-body">
       {% for message in messages %}
@@ -71,22 +76,20 @@
   </div>
   </section>
   {% endif %}
-
     <!-- Forms -->
 
-    <div  class="container py-5">
+    <div  class="container py-5" style="margin-top: 30px;">
       <form method="POST" novalidate>
           {% csrf_token %}
-          <label class="label">User Name</label>
+          <label class="label" style="color:#775655;font-size: 20px;">User Name</label>
           {{form.username}}
- 
-          <label class="label">Password</label>
+          <label class="label" style="color:#775655;font-size: 20px;margin-top: 15px;">Password</label>
           {{form.password}}
           
           <br>
           <br>
          
-          <input class="button is-warning" type="submit" value="Sign Up" />
+          <input style="background-color: #ffdeac;color: #5b5b5b;font-weight: bold;" class="button is-warning" type="submit" value="Sign Up" />
           
           
       </form>

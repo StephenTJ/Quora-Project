@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from . import forms
 # Create your views here.
+
+
 def Login_Page(request):
     if request.method == 'POST':
         form = forms.LoginForm(request, request.POST)
@@ -12,20 +14,24 @@ def Login_Page(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, "Login successful." )
+                messages.success(request, "Login successful.")
                 return redirect('questions')
             else:
+                messages.error(
+                    request, "Login failed. Please check your username and password.")
                 return redirect('login')
         else:
+            messages.error(request, "Invalid form data. Please try again.")
             return redirect('login')
     else:
         form = forms.LoginForm()
-        return render(request, 'login_page.html',{'form':form})
+        return render(request, 'login_page.html', {'form': form})
+
 
 def Logout_Page(request):
-	logout(request)
-	# messages.info(request, "You have successfully logged out.") 
-	return redirect("login")
+    logout(request)
+    return redirect("login")
+
 
 def Signup_Page(request):
     if request.method == 'POST':
@@ -35,8 +41,8 @@ def Signup_Page(request):
             messages.success(request, "Registration successful.")
             return redirect('signup')
         else:
-            # Form is not valid, show an error message in the template
-            messages.error(request, "Unsuccessful registration. Invalid information.")
+            messages.error(
+                request, "Unsuccessful registration. Invalid information.")
             return redirect('signup')
     else:
         form = forms.SignupForm()
