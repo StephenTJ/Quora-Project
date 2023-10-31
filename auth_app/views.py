@@ -24,7 +24,7 @@ def Login_Page(request):
 
 def Logout_Page(request):
 	logout(request)
-	messages.info(request, "You have successfully logged out.") 
+	# messages.info(request, "You have successfully logged out.") 
 	return redirect("login")
 
 def Signup_Page(request):
@@ -32,10 +32,13 @@ def Signup_Page(request):
         form = forms.SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful." )
-            return redirect('questions')
-        messages.error(request, "Unsuccessful registration. Invalid information.")
+            messages.success(request, "Registration successful.")
+            return redirect('signup')
+        else:
+            # Form is not valid, show an error message in the template
+            messages.error(request, "Unsuccessful registration. Invalid information.")
+            return redirect('signup')
     else:
         form = forms.SignupForm()
-    return render(request, 'signup_page.html',{'form':form})
+
+    return render(request, 'signup_page.html', {'form': form})

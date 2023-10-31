@@ -56,7 +56,21 @@
           </div>
         </div>
       </nav>
-    <!-- NAV BAR-->
+    <!-- NAV BAR-->    
+    
+    {% if messages %}
+    <div class="alert alert-danger">
+    <section class="hero is-small is-primary">
+      <div class="hero-body">
+        {% for message in messages %}
+        <p class="title">
+          {{ message }}
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+    </section>
+    {% endif %}
     <!-- Forms -->
     <div  class="container py-5">
         <form method="POST" novalidate>

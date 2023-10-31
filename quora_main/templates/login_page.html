@@ -19,7 +19,6 @@
   }
   </style>
 <body>
-    <h1>Login Page</h1>
      <!-- NAV BAR-->
      <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -58,6 +57,21 @@
         </div>
       </nav>
     <!-- NAV BAR-->
+
+  {% if messages %}
+  <div class="alert alert-danger">
+  <section class="hero is-small is-primary">
+    <div class="hero-body">
+      {% for message in messages %}
+      <p class="title">
+        {{ message }}
+      </p>
+      {% endfor %}
+    </div>
+  </div>
+  </section>
+  {% endif %}
+
     <!-- Forms -->
 
     <div  class="container py-5">

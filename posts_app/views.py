@@ -1,12 +1,13 @@
 from django.shortcuts import redirect, render,get_object_or_404
 from .models import Question_Table,Answer_Table,Like_Table
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count,Q
 
 def Home_Page(request):
+    user_id = request.user.id
     answers=Answer_Table.objects.select_related('question_id').order_by('-created_on')
     answers = answers.annotate(num_likes=Count('like_table'))
-    return render(request, 'home_page.html', {'answers': answers})
+    return render(request, 'home_page.html', {'answers': answers,'user_id': user_id})
 
 @login_required(login_url='/login')
 def Questions_Page(request):
@@ -58,21 +59,21 @@ def Answer_Question_Page(request, question_id):
 @login_required(login_url='/login')
 def Add_Like_Page(request, answer_id, answered_by_user_id):
     answer = get_object_or_404(Answer_Table, pk=answer_id)
-
-    # Check if the entry already exists
-    like, created = Like_Table.objects.get_or_create(
-        answer_id=answer,
-        liked_by_user_id=answered_by_user_id,
-        defaults={}  # Empty dictionary because no additional data is required
-    )
-
-    if created:
-        # Entry was created because it didn't exist
+    print(answer_id, answered_by_user_id)
+    # Check if an entry with the same combination already exists
+    existing_like = Like_Table.objects.filter(
+        Q(answer_id=answer_id) & Q(liked_by_user_id=answered_by_user_id)
+    ).first()
+    print(existing_like)
+    if existing_like is None:
+        # Entry doesn't exist, create a new one
+        like = Like_Table(answer_id=answer, liked_by_user_id=answered_by_user_id)
+        like.save()
         return redirect('home')
     else:
-        # Entry already exists, handle accordingly
-        # For example, you could display an error message or redirect to another page
-        return redirect('home') 
+        # Entry already exists, you can handle it accordingly
+        # For example, return an error response or redirect to another page
+        return redirect('home')
 
 
 

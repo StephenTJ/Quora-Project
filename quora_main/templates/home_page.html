@@ -35,10 +35,10 @@
 
 <body">
     <!-- NAV BAR-->
-    <nav class="navbar is-danger" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%;">
+    <nav class="navbar is-danger" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%;background-color: #f38181;">
         <div class="navbar-brand">
             <a class="navbar-item">
-                <h2 style="font-size: 30px;"><strong>Quora Project</strong></h2>
+                <h2 style="font-size: 30px;color: #ffffff;"><strong>Quora Project</strong></h2>
                 <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
             </a>
 
@@ -51,12 +51,12 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item" href="/home">
+            <div class="navbar-start" >
+                <a class="navbar-item" href="/home" style="color: #ffffff;font-size: 20px;">
                     Posts
                 </a>
 
-                <a class="navbar-item" href="/questions">
+                <a class="navbar-item" href="/questions" style="color: #ffffff;font-size: 20px;">
                     Questions
                 </a>
             </div>
@@ -88,7 +88,7 @@
     </nav>
     <!-- NAV BAR-->
     <!-- Questions -->
-    <div class="container is-max-desktop custom-container" style="margin-top: 60px; height: calc(100vh - 60px);">
+    <div class="container is-max-desktop " style="margin-top: 60px; height: calc(100vh - 60px);">
 
         <ul>
             {% for answer in answers %}
@@ -101,7 +101,7 @@
 
                     <div class="content" style="padding: 20px;">
                        
-                        {{ answer.answer_text|slice:":300" }}
+                        {{ answer.answer_text|slice:":1000" }}
 
                         
                     </div>
@@ -123,13 +123,15 @@
                                 <p class="title is-4">{{ answer.num_likes }}</p>
                             </div>
                         </div>
-                        
                         <button class="button is-primary is-rounded">
-                            <a href="addlike/{{ answer.answer_id }}/{{ answer.answered_by_user_id }}" style="color: #000000"><span>Like Post</span></a>
-                        </button>
-                        <button class="button is-primary is-rounded">
-                            <a href="answerquestion/{{ question.question_id }}" style="color: #000000"><span>View Post</span></a>
-                        </button>
+                        {% if user_id %}
+                          
+                                <a href="addlike/{{ answer.answer_id }}/{{ user_id }}" style="color: #000000"><span>Like Post</span></a>
+                            
+                        {% else %}
+                            <a href="/login" style="color: #000000">Like Post</a>
+                        {% endif %}
+                    </button>
                     </div>
                 </div>
             </li>
