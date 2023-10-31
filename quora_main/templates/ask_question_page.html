@@ -32,7 +32,6 @@
     justify-content: flex-end;
 }
 </style>
-
 <body">
     <!-- NAV BAR-->
     <nav class="navbar is-danger" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%;">
@@ -87,61 +86,31 @@
         </div>
     </nav>
     <!-- NAV BAR-->
-    <!-- Questions -->
+    <!-- Message -->
     <div class="container is-max-desktop custom-container" style="margin-top: 60px; height: calc(100vh - 60px);">
-
-        <ul>
-            {% for answer in answers %}
-            <li>
-                <div class="card" style="margin: 10px;">
-
-                    <div class="card-image">
-                        {{ answer.question_id.question_text }}
-                    </div>
-
-                    <div class="content" style="padding: 20px;">
-                       
-                        {{ answer.answer_text|slice:":300" }}
-
-                        
-                    </div>
-                    <div class="card-content" style="display: flex; justify-content: space-between; align-items: center;">
-                       
-                        <div class="media">
-                            <div class="media-content">
-                                <p class="subtitle is-6">Answered By&nbsp&nbsp&nbsp</p>
-                                <p class="title is-4">{{ answer.answered_by_user_name }}&nbsp;&nbsp;&nbsp;</p>
-                            </div>
-                           
-                            <div class="media-content">
-                                <p class="subtitle is-6">Asked By&nbsp&nbsp&nbsp</p>
-                                <p class="title is-4">{{ answer.question_id.asked_by_user_name }}&nbsp&nbsp&nbsp</p>
-                            </div>
-
-                            <div class="media-content">
-                                <p class="subtitle is-6">Likes</p>
-                                <p class="title is-4">{{ answer.num_likes }}</p>
-                            </div>
-                        </div>
-                        
-                        <button class="button is-primary is-rounded">
-                            <a href="addlike/{{ answer.answer_id }}/{{ answer.answered_by_user_id }}" style="color: #000000"><span>Like Post</span></a>
-                        </button>
-                        <button class="button is-primary is-rounded">
-                            <a href="answerquestion/{{ question.question_id }}" style="color: #000000"><span>View Post</span></a>
-                        </button>
-                    </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="field">
+              <label class="label">Question</label>
+              <div class="control">
+                <textarea class="textarea" name="message" placeholder="Textarea"></textarea>
+              </div>
+            </div>
+            
+            <div class="field is-grouped">
+              <div class="control">
+                <button class="button is-link" type="submit">Submit</button>
+              </div>
+            </div>
+          </form>
+        
     </div>
-    <!-- Questions -->
- 
+    <!-- Message -->
+
     <!-- Pop Up -->
     </body>
     <script src="{% static 'bootstrap.js' %}">
-    
-        </script>
+       
+    </script>
 
 </html>

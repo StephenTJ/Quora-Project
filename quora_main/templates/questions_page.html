@@ -1,14 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bulma.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'bootstrap.css' %}"> -->
 </head>
-<body>
-    <h1>Questions Page</h1>
-</body>
-<script src="{% static 'bootstrap.js' %}"></script>
+<style>
+    .custom-container {
+        background-color: #ffd8e4;
+        height: 100vh;
+        /* Set the height to 100% of the viewport height */
+        overflow-y: auto;
+        /* Allow vertical scrolling if content overflows */
+    }
+    .is-fab {
+    width: 100%;
+    position: fixed; /* Change this to relative */
+    bottom: 0;
+
+    justify-content: flex-end; /* Change this to flex-end */
+    display: flex;
+    padding: 20px;
+}
+
+.has-content-centered {
+    display: flex; /* Corrected flex property */
+    justify-content: flex-end;
+}
+</style>
+<body">
+    <!-- NAV BAR-->
+    <nav class="navbar is-danger" role="navigation" aria-label="main navigation" style="position: fixed; top: 0; width: 100%;">
+        <div class="navbar-brand">
+            <a class="navbar-item">
+                <h2 style="font-size: 30px;"><strong>Quora Project</strong></h2>
+                <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="/home">
+                    Posts
+                </a>
+
+                <a class="navbar-item" href="/questions">
+                    Questions
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button is-warning" href="/signup">
+                            <strong>Sign Up</strong>
+                        </a>
+                        {% if user.is_authenticated %}
+
+                        <a class="button is-warning" href="/logout">
+                            <strong>Log Out</strong>
+                        </a>
+
+                        {% else %}
+
+                        <a class="button is-warning" href="/login">
+                            <strong>Log In</strong>
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- NAV BAR-->
+    <!-- Questions -->
+    <div class="container is-max-desktop custom-container" style="margin-top: 60px; height: calc(100vh - 60px);">
+
+        <ul>
+            {% for question in questions %}
+            <li>
+                <div class="card" style="margin: 10px;">
+                    <div class="content" style="padding: 20px;">
+                        {{ question.question_text }}
+                    </div>
+                    <div class="card-content" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="subtitle is-6">Asked By</p>
+                                <p class="title is-4">{{ question.asked_by_user_name }}</p>
+                            </div>
+                        </div>
+                        <button class="button is-primary is-rounded">
+                            <a href="answerquestion/{{ question.question_id }}" style="color: #000000"><span>Answer</span></a>
+                        </button>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <!-- Questions -->
+    <!-- Floating Button -->
+    <div class="is-fab has-content-centered" >
+        <button class="button is-primary is-rounded"  type="button">
+          <a href="/askquestion" style="color:#000000"><span>Ask Question</span></a>
+        </button>
+      </div>
+
+    <!-- Floating Button -->
+    <!-- Pop Up -->
+    </body>
+    <script src="{% static 'bootstrap.js' %}">
+       
+    </script>
+
 </html>
