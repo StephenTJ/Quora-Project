@@ -9,17 +9,16 @@
     <!-- <link rel="stylesheet" href="{% static 'bootstrap.css' %}"> -->
 </head>
 <style>
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh; 
-    min-width: 70vh;
-    /* This sets the container to the full viewport height */
-  }
-  </style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh; 
+  min-width: 70vh;
+  /* This sets the container to the full viewport height */
+}
+</style>
 <body>
-    <h1>Login Page</h1>
      <!-- NAV BAR-->
      <nav class="navbar is-danger" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -59,24 +58,26 @@
       </nav>
     <!-- NAV BAR-->
     <!-- Forms -->
-
     <div  class="container py-5">
-      <form method="POST" novalidate>
-          {% csrf_token %}
-          <label class="label">User Name</label>
-          {{form.username}}
- 
-          <label class="label">Password</label>
-          {{form.password}}
-          
-          <br>
-          <br>
-         
-          <input class="button is-warning" type="submit" value="Sign Up" />
-          
-          
-      </form>
-  </div>
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            <label class="label">User Name</label>
+            {{form.username}}
+            <label class="label">User Email</label>
+            {{form.email}}
+            <label class="label">Password</label>
+            {{form.password1}}
+            <label class="label">Confirm Password</label>
+            {{form.password2}}
+            
+            <br>
+            <br>
+           
+            <input class="button is-warning" type="submit" value="Sign Up" />
+            
+            
+        </form>
+    </div>
     <!-- Forms -->
 
 
