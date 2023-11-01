@@ -75,28 +75,17 @@ WSGI_APPLICATION = 'quora_main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'quora_database',
-        'USER': 'postgresqlstj@postgresqlstj',
-        'PASSWORD': 'Stephen@98',
-        'HOST': 'postgresqlstj.postgres.database.azure.com',  
+        'USER': 'postgres',
+        'PASSWORD': 'stephen',
+        'HOST': 'localhost',  
         'PORT': '5432',     
     }
 }
-
-
-# DATABASES = {
-#      'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'quora_database',
-#         'USER': 'postgres',
-#         'PASSWORD': 'stephen',
-#         'HOST': 'localhost',  
-#         'PORT': '5432',     
-#     }
-# }
 
 
 # Password validation
