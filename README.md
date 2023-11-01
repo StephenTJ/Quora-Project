@@ -22,11 +22,11 @@ https://rc1p0fogab.execute-api.ap-south-1.amazonaws.com/dev
   
 4. **Connect the database and run these commands :**
   
-  1. **Create Initial Migrations:**
+    1. **Create Initial Migrations:**
     
         `python manage.py makemigrations`
     
-  2. **Apply Migrations to the Database**:
+    2. **Apply Migrations to the Database**:
     
         `python manage.py migrate`
     
